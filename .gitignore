@@ -1,0 +1,19 @@
+# Ignore all HDF5 files
+*.h5
+
+# Common large/intermediate files
+*.npz
+*.npy
+*.pkl
+*.log
+*.out
+*.err
+
+# OS and editor files
+.DS_Store
+__pycache__/
+*.pyc
+
+# Temporary or scratch data
+scratch/
+
