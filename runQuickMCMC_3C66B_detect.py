@@ -49,7 +49,7 @@ with open(data_pkl, 'rb') as psr_pkl:
 print(len(psrs))
 
 #number of iterations (increase to 100 million - 1 billion for actual analysis)
-N = int(1e9)
+N = int(1e6)
 
 n_int_block = 10000 #number of iterations in a block (which has one shape update and the rest are projection updates)
 save_every_n = 100000 #number of iterations between saving intermediate results (needs to be intiger multiple of n_int_block)
