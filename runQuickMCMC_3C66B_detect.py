@@ -105,7 +105,7 @@ chain_params = ChainParams(T_max,n_chain, n_block_status_update,
                            thin=10,  #thinning, i.e. save every `thin`th sample to file (increase to higher than one to keep file sizes small)
                            prior_draw_prob=0.2, de_prob=0.6, fisher_prob=0.3, #probability of different jump types
                            dist_jump_weight=0.2, rn_jump_weight=0.3, gwb_jump_weight=0.1, common_jump_weight=0.2, all_jump_weight=0.2, #probability of updating different groups of parameters
-                           fix_rn=False, zero_rn=False, fix_gwb=False, zero_gwb=False) #switches to turn off GWB or RN jumps and keep them fixed and to set them to practically zero (gamma=0.0, log10_A=-20)
+                           fix_rn=False, zero_rn=False, fix_gwb=False, zero_gwb=False, cos_gwtheta_bounds= [cos_gwtheta-1e-8,cos_gwtheta+1e-8], gwphi_bounds =[gwphi-1e-8,gwphi+1e-8]) #switches to turn off GWB or RN jumps and keep them fixed and to set them to practically zero (gamma=0.0, log10_A=-20)
 
 pta,mcc = QuickCW.QuickCW(chain_params, psrs,
                                   mc_prior='detection', #specify chirp mass prior to use - 'detection':uniform in log-mc, 'UL': uniform in mc
