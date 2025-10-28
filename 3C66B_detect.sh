@@ -10,7 +10,7 @@ PYTHON_PATH="/scratch/na00078/conda_envs/QuickCW/bin/python"
 
 # Submit detection job first
 detect_jobid=$(sbatch --job-name=3C66B_detect \
-    --output=3C66B_detect.out \
+    --output=3C66B_detect_2k_iterations.out \
     --parsable \
     --wrap="$PYTHON_PATH runQuickMCMC_3C66B_detect.py")
 

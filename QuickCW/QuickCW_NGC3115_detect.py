@@ -131,7 +131,7 @@ def QuickCW(chain_params, psrs, noise_json=None, use_legacy_equad=False, include
     log10_fgw = parameter.Uniform(np.log10(chain_params.freq_bounds[0]), np.log10(chain_params.freq_bounds[1]))(
         '0_log10_fgw')
 
-    m_min = 6.6   # This is calculated and changed for a target
+    m_min = 5.93   # This is calculated and changed for a target
     m_max = 10 # This is calculated and changed for a target
     
     if mc_prior == 'detection':
