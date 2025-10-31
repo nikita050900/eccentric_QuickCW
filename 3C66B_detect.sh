@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=3C66B_master
 #SBATCH --output=3C66B_master.log
-#SBATCH -p sbs0016
+#SBATCH -p standby
 #SBATCH --mem-per-cpu=64G
 #SBATCH --ntasks=1
 
