@@ -38,7 +38,7 @@ from matplotlib import patheffects
 from matplotlib import text
 import healpy as hp
 from healpy.newvisufunc import projview, newprojplot
-
+import sys
 
 #make sure this points to the pickled pulsars you want to analyze
 data_pkl = '/scratch/na00078/projects/15yr_data/15yrCW/v1p1_de440_pint_bipm2019_unshifted_pdist.pkl'
@@ -49,14 +49,14 @@ with open(data_pkl, 'rb') as psr_pkl:
 print(len(psrs))
 
 #number of iterations (increase to 100 million - 1 billion for actual analysis)
-N = int(20000)
+N = int(1e8)
 
 n_int_block = 2000#10000 #number of iterations in a block (which has one shape update and the rest are projection updates)
-save_every_n = 2000 #number of iterations between saving intermediate results (needs to be intiger multiple of n_int_block)
+save_every_n = 100000 #number of iterations between saving intermediate results (needs to be intiger multiple of n_int_block)
 N_blocks = np.int64(N//n_int_block) #number of blocks to do
 fisher_eig_downsample = 2000 #multiplier for how much less to do more expensive updates to fisher eigendirections for red noise and common parameters compared to diagonal elements
 
-n_status_update = 1 #number of status update printouts (N/n_status_update needs to be an intiger multiple of n_int_block)
+n_status_update = 100 #number of status update printouts (N/n_status_update needs to be an intiger multiple of n_int_block)
 n_block_status_update = np.int64(N_blocks//n_status_update) #number of bllocks between status updates
 
 assert N_blocks%n_status_update ==0 #or we won't print status updates
@@ -81,8 +81,11 @@ psr_dist_file = '/scratch/na00078/projects/15yr_data/15yrCW/pulsar_distances_15y
 
 
 #this is where results will be saved
-savefile = '/scratch/na00078/projects/eccentric_QuickCW/h5_files/3C66B_detect_2k_iterations_trial.h5'
-#savefile = None
+# get output filename from bash argument or use default
+if len(sys.argv) > 1:
+    savefile = sys.argv[1]
+else:
+    savefile = '/scratch/na00078/projects/eccentric_QuickCW/h5_files/3C66B_detect_default.h5'
 
 #targeted search params-LondonAdd
 c = SkyCoord(ra = '02h23m11.5s', dec = '42d59m30s')
