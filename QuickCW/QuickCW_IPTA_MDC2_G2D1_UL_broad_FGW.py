@@ -104,10 +104,9 @@ def QuickCW(chain_params, psrs, noise_json=None, use_legacy_equad=True, include_
 
     log10_Agw = parameter.Uniform(-20,-11)('gwb_log10_A')
 
-    if gwb_gamma_prior is None:
-        gwb_gamma_prior = np.array([0,7])
-
-    gamma_gw = parameter.Uniform(gwb_gamma_prior[0],gwb_gamma_prior[1])('gwb_gamma')
+    eps = 1e-12
+    gamma_gw = parameter.Uniform(13/3 - eps, 13/3 + eps)('gwb_gamma')
+    
     cpl = utils.powerlaw(log10_A=log10_Agw, gamma=gamma_gw)
     crn = gp_signals.FourierBasisGP(cpl, components=chain_params.gwb_comps, Tspan=Tspan, name='gw')
 
