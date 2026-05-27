@@ -1,0 +1,4 @@
+numpy
+enterprise_extensions
+numba
+h5py
