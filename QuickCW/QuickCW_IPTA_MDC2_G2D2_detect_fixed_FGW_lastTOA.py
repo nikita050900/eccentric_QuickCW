@@ -1,10 +1,11 @@
 """C 2021 Bence Becsy
 MCMC for CW fast likelihood (w/ Neil Cornish and Matthew Digman)
 
-QuickCW module for the t_ref comparison run (CQG paper):
+QuickCW module for G2D2 fixed fGW 100M run (CQG paper):
     G2D2 dataset, Detection mode, fixed fGW.
     Direct dL sampling pipeline (Loki Dey).
-    tref set to last TOA (Bjorn's Enterprise convention) via driver kwarg.
+    tref set via driver kwarg (last TOA for Bjorn comparison).
+    GWB amplitude: U(-18, -11) to match Enterprise prior.
     GWB gamma: free, U(0, 7).
 """
 
@@ -45,6 +46,7 @@ def QuickCW(chain_params, psrs, noise_json=None, use_legacy_equad=True,
         - Detection mode (mc_prior='detection')
         - fixed fGW (set in driver via chain_params.freq_bounds)
         - dL sampled in U(log10(74.646), log10(76.154))  (1% around 75.4 Mpc)
+        - GWB amplitude: U(-18, -11) to match Enterprise prior
         - GWB gamma: free, U(0, 7)
         - tref: set via kwarg (defaults to cm.tref = MJD 53000 if not provided)
 
@@ -93,7 +95,7 @@ def QuickCW(chain_params, psrs, noise_json=None, use_legacy_equad=True,
     pl = utils.powerlaw(log10_A=log10_A, gamma=gamma)
     rn = gp_signals.FourierBasisGP(pl, components=30)
 
-    log10_Agw = parameter.Uniform(-20, -11)('gwb_log10_A')
+    log10_Agw = parameter.Uniform(-18, -11)('gwb_log10_A')
 
     if gwb_gamma_prior is None:
         gwb_gamma_prior = np.array([0, 7])

@@ -2,12 +2,10 @@
 """C 2021 Bence Becsy
 MCMC for CW fast likelihood (w/ Neil Cornish and Matthew Digman)
 
-Run B tref comparison driver: G2D1 dataset, Detection mode, broad fGW.
-Loki direct dL sampling pipeline at 1,000,000 saved samples.
-tref = last TOA across all pulsars (Bjorn's Enterprise convention).
-
-Purpose: verify that QuickCW recovers consistent posteriors when using
-the same tref as Bjorn's Enterprise runs on the GWB only dataset.
+Run: G2D2 dataset, Detection mode, broad fGW.
+Loki direct dL sampling pipeline at 100,000,000 saved samples.
+tref = last TOA (set in const_mcmc.py).
+GWB amplitude prior: U(-18, -11) to match Enterprise.
 """
 import sys
 import pickle
@@ -37,12 +35,10 @@ with open(data_pkl, 'rb') as psr_pkl:
     psrs = pickle.load(psr_pkl)
 print("Number of pulsars loaded:", len(psrs))
 
-# compute tref = last TOA across all pulsars (Bjorn's Enterprise convention)
-max_toa = max(np.max(psr.toas) for psr in psrs)
-print("tref set to last TOA: %.6f s (MJD %.6f)" % (max_toa, max_toa / 86400.0))
+# tref set in const_mcmc.py (MJD 58175.673402, last TOA, Bjorn's convention)
 
-# 1,000,000 saved samples with thin=10 -> N = 1e7 raw iterations
-N = int(1e7)
+# 100,000,000 saved samples with thin=10 -> N = 1e9 raw iterations
+N = int(1e9)
 n_int_block = 1000
 save_every_n = 10000
 N_blocks = np.int64(N // n_int_block)
@@ -67,7 +63,7 @@ psr_dist_file = None
 if len(sys.argv) > 1:
     savefile = sys.argv[1]
 else:
-    savefile = '/scratch/na00078/projects/IPTA_MDC2/h5_files/G2D2_broad_detect_loki_1M_lastTOA.h5'
+    savefile = '/scratch/na00078/projects/IPTA_MDC2/h5_files/G2D2_broad_detect_loki_100M_lastTOA.h5'
 print("Saving to:", savefile)
 
 # sky position fixed to G2D2 injection (per paper Table 1)
@@ -97,7 +93,6 @@ pta, mcc = QuickCW.QuickCW(
     mc_prior='detection',
     psr_distance_file=psr_dist_file,
     noise_json=noisefile,
-    tref=max_toa,
 )
 
 mcc.advance_N_blocks(N_blocks)

@@ -123,10 +123,7 @@ print("  cos_gwtheta = %.8f" % cos_gwtheta)
 print("  gwphi       = %.8f" % gwphi)
 
 # Gaussian dL prior from SBF measurement
-# Cantiello et al. 2013, A&A 552, A106:
-#   d = 20.8 +/- 0.5(stat) +/- 1.5(sys)
-# SNe Ia (Stritzinger et al. 2010) gives 17.8 Mpc,
-# which sits at ~1.4 sigma with 10% fractional uncertainty
+
 dist_mean = 20.8         # Mpc
 dist_sigma = 0.1 * dist_mean  # 10% fractional uncertainty
 
@@ -165,3 +162,8 @@ pta, mcc = QuickCW.QuickCW(
     mc_bounds=[6.0, 10.0])
 
 mcc.advance_N_blocks(N_blocks)
+
+# Cantiello et al. 2013, A&A 552, A106:
+#   d = 20.8 +/- 0.5(stat) +/- 1.5(sys)
+# SNe Ia (Stritzinger et al. 2010) gives 17.8 Mpc,
+# which sits at ~1.4 sigma with 10% fractional uncertainty
