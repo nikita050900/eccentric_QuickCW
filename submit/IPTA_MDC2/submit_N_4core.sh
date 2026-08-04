@@ -6,6 +6,7 @@
 #SBATCH --mem=64G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
+#SBATCH --exclusive
 cd /scratch/na00078/projects/eccentric_QuickCW
 source /shared/software/conda/etc/profile.d/conda.sh
 conda activate /scratch/na00078/conda_envs/QuickCW
